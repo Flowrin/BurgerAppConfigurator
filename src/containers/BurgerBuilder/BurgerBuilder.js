@@ -32,7 +32,7 @@ class BurgerBuilder extends Component {
     error: false,
   };
 
-  componentDidMount() {
+  UNSAFE_componentDidMount() {
     axios
       .get('https://react-burger-ec1f8.firebaseio.com/ingredients.json')
       .then((res) => {

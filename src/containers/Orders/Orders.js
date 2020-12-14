@@ -9,7 +9,7 @@ class Orders extends Component {
   };
   componentDidMount() {
     axios
-      .get('https://react-burger-ec1f8.firebaseio.com/orders.json')
+      .get('/orders.json')
       .then((res) => {
         const fetchedOrders = [];
         for (let key in res.data) {
