@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
+require('dotenv').config()
+
 
 export const authStart = () => {
   return {
@@ -43,15 +45,20 @@ export const auth = (email, password, isSignup) => {
       returnSecureToken: true,
     };
     let url =
-      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyDgfPNPdL-a0bCYX2fBEVEI9Zy4TTjv4z8';
+      'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key='+ process.env.REACT_APP_API_KEY;
     if (!isSignup) {
       url =
-        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyDgfPNPdL-a0bCYX2fBEVEI9Zy4TTjv4z8';
+        'https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key='+ process.env.REACT_APP_API_KEY;
     }
     axios
       .post(url, authData)
       .then((response) => {
         console.log(response);
+        const expirationDate = new Date(
+          new Date().getTime() + response.data.expiresIn * 1000
+        );
+        localStorage.setItem('token', response.data.idToken);
+        localStorage.setItem('expirationDate', expirationDate);
         dispatch(authSuccess(response.data.idToken, response.data.localId));
         dispatch(checkAuthTimeout(response.data.expiresIn));
       })
