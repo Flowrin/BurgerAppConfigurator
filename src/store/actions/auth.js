@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
-require('dotenv').config();
 
 export const authStart = () => {
   return {
@@ -56,7 +55,6 @@ export const auth = (email, password, isSignup) => {
     axios
       .post(url, authData)
       .then((response) => {
-        console.log(response);
         const expirationDate = new Date(
           new Date().getTime() + response.data.expiresIn * 1000
         );
@@ -88,8 +86,7 @@ export const authCheckState = () => {
     }
     const expirationDate = new Date(localStorage.getItem('expirationDate'));
     const now = new Date();
-    console.log(expirationDate);
-    console.log(now);
+
     if (expirationDate > now) {
       const userId = localStorage.getItem('userId');
       dispatch(authSuccess(token, userId));

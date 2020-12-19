@@ -28,6 +28,7 @@ const order = (props) => {
       <p>
         Price: <strong> USD {props.price}</strong>
       </p>
+      <p>Date: {props.date}</p>
     </div>
   );
 };

@@ -7,6 +7,7 @@ const drawerToggle = (props) => (
         <div></div>
         <div></div>
         <div></div>
+        <div></div>
     </div>
 );
 
